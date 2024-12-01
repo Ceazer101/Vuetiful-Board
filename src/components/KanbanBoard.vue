@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="background-container">
       <v-row>
         <v-col v-for="(column, index) in columns" :key="index" class="kanban-column">
           <v-card class="kanban-card">
@@ -38,7 +38,7 @@
             tasks: ['Task 1', 'Task 2', 'Task 3'],
           },
           {
-            title: 'In Progress',
+            title: 'Doing',
             tasks: ['Task 4'],
           },
           {

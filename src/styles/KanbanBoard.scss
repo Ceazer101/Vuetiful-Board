@@ -1,22 +1,27 @@
 .kanban-column {
-    min-width: 300px;
-  }
-  
-  .kanban-card {
-    height: 100%;
-    overflow-y: auto;
-  }
-  
-  .kanban-task {
-    cursor: grab;
-    margin: 4px 0;
-    padding: 8px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    box-shadow: 0px 2px 4px rgba(185, 114, 32, 0.1);
-  }
-  
-  .kanban-task:active {
-    cursor: grabbing;
-  }
-  
+  min-width: 300px;
+}
+
+.kanban-card {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.kanban-task {
+  cursor: grab;
+  margin: 4px 0;
+  padding: 8px;
+  background-color: #0cc9d6d7;
+}
+
+.kanban-task:active {
+  cursor: grabbing;
+}
+
+.background-container {
+  height: 100vh;
+  background-image: url('/public/monkey.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
