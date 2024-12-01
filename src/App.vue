@@ -25,7 +25,9 @@
         <v-list nav>
           <v-list-item prepend-icon="mdi-folder" title="Boards" value="boards"></v-list-item>
           <v-list-item prepend-icon="mdi-share-variant" title="Shared" value="shared"></v-list-item>
-          <v-list-item prepend-icon="mdi-information" title="About" value="about"></v-list-item>
+          <router-link to="/about">
+            <v-list-item prepend-icon="mdi-information" title="About" value="about"></v-list-item>
+          </router-link>
         </v-list>
       </v-navigation-drawer>
 
@@ -52,30 +54,23 @@
         </v-btn>
 
         <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
+          <router-link to="/" exact>
+            <v-icon>mdi-home</v-icon>
+          </router-link>
         </v-btn>
       </v-app-bar>
 
     <v-main>
-      <kanbanBoard></kanbanBoard>
+      <RouterView />
     </v-main>
   </v-app>
 </template>
 
-<script setup>
-  import { ref } from 'vue'
-
-  const drawer = ref(null)
-</script>
-
 <script>
-  import KanbanBoard from '../src/components/KanbanBoard.vue';
+import { RouterView } from 'vue-router';
 
   export default {
-    name: 'App',
-    components: {
-      KanbanBoard,
-    },
+    
     data: () => ({ drawer: null }),
   }
 </script>
