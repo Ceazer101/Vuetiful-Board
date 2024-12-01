@@ -2,9 +2,11 @@
     <v-container class="background-container">
       <v-row>
         <v-col
-          v-for="(column, index) in columns"
-          :key="index"
-          class="kanban-column"
+            v-for="(column, index) in columns"
+            :key="index"
+            class="kanban-column"
+            @dragover.prevent
+            @drop="onDrop(column)"
         >
           <v-card class="kanban-card">
             <v-card-title>{{ column.title }}</v-card-title>
@@ -16,8 +18,6 @@
                 class="kanban-task"
                 draggable="true"
                 @dragstart="onDragStart(task, column)"
-                @dragover.prevent
-                @drop="onDrop(column)"
               >
                 <v-list-item-content>
                   <v-list-item-title>{{ task.title }}</v-list-item-title>
