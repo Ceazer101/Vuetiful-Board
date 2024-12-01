@@ -57,7 +57,7 @@
       </v-app-bar>
 
     <v-main>
-      <!--  -->
+      <kanbanBoard></kanbanBoard>
     </v-main>
   </v-app>
 </template>
@@ -69,7 +69,13 @@
 </script>
 
 <script>
+  import KanbanBoard from '../src/components/KanbanBoard.vue';
+
   export default {
+    name: 'App',
+    components: {
+      KanbanBoard,
+    },
     data: () => ({ drawer: null }),
   }
 </script>
