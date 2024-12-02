@@ -6,7 +6,7 @@
             :key="index"
             class="kanban-column"
             @dragover.prevent
-            @drop="onDrop(column)"
+            @drop="onDrop(column, null)"
         >
           <v-card class="kanban-card">
             <v-card-title>{{ column.title }}</v-card-title>
@@ -17,7 +17,10 @@
                 :key="taskIndex"
                 class="kanban-task"
                 draggable="true"
-                @dragstart="onDragStart(task, column)"
+                @dragstart="onDragStart(task, column, taskIndex)"
+                @dragenter.prevent="onDragEnter(task, column, taskIndex)"
+                @dragover.prevent
+                @drop="onDrop(column, taskIndex)"
               >
                 <v-list-item-content>
                   <v-list-item-title>{{ task.title }}</v-list-item-title>
@@ -59,20 +62,37 @@
         ],
         draggedTask: null as { title: string; description: string } | null,
         draggedFrom: null as { title: string; tasks: { title: string; description: string }[] } | null,
+        draggedTaskIndex: null as number | null,
       };
     },
     methods: {
-      onDragStart(task: { title: string; description: string }, column: { title: string; tasks: { title: string; description: string }[] }) {
-        this.draggedTask = task;
-        this.draggedFrom = column;
-      },
-      onDrop(column: { title: string; tasks: { title: string; description: string }[] }) {
+        onDragStart(task: { title: string; description: string }, column: { title: string; tasks: { title: string; description: string }[] }, taskIndex: number) {
+            this.draggedTask = task;
+            this.draggedFrom = column;
+            this.draggedTaskIndex = taskIndex;
+        },
+        onDragEnter(task: { title: string; description: string }, column: { title: string; tasks: { title: string; description: string }[] }, taskIndex: number) {
+            if (this.draggedTask && this.draggedFrom) {
+                const fromTaskIndex = this.draggedFrom.tasks.indexOf(this.draggedTask);
+                if (fromTaskIndex !== -1) this.draggedFrom.tasks.splice(fromTaskIndex, 1);
+                
+                column.tasks.splice(taskIndex, 0, this.draggedTask);
+                this.draggedTaskIndex = taskIndex;
+            }
+        },
+      onDrop(column: { title: string; tasks: { title: string; description: string }[] }, taskIndex: number | null) {
         if (this.draggedTask && this.draggedFrom) {
-            const taskIndex = this.draggedFrom.tasks.indexOf(this.draggedTask);
-            if (taskIndex !== -1) this.draggedFrom.tasks.splice(taskIndex, 1);
-            column.tasks.push(this.draggedTask);
+            const fromTaskIndex = this.draggedFrom.tasks.indexOf(this.draggedTask);
+            if (fromTaskIndex !== -1) this.draggedFrom.tasks.splice(fromTaskIndex, 1);
+            
+            if (taskIndex !== null) {
+                column.tasks.splice(taskIndex, 0, this.draggedTask);
+            } else {
+                column.tasks.push(this.draggedTask);
+            }
             this.draggedTask = null;
             this.draggedFrom = null;
+            this.draggedTaskIndex = null;
         }
       }
     }
