@@ -1,7 +1,14 @@
 <template>
-  <HelloWorld />
+  <KanbanBoard />
 </template>
 
-<script lang="ts" setup>
-  //
+<script>
+import KanbanBoard from '../../src/components/KanbanBoard.vue';
+
+export default {
+  name: 'Home',
+  components: {
+    KanbanBoard,
+  }
+}
 </script>
