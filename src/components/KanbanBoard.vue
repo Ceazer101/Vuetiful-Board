@@ -18,7 +18,6 @@
                 class="kanban-task"
                 draggable="true"
                 @dragstart="onDragStart(task, column, taskIndex)"
-                @dragenter.prevent="onDragEnter(task, column, taskIndex)"
                 @dragover.prevent
                 @drop="onDrop(column, taskIndex)"
               >
@@ -71,28 +70,20 @@
             this.draggedFrom = column;
             this.draggedTaskIndex = taskIndex;
         },
-        onDragEnter(task: { title: string; description: string }, column: { title: string; tasks: { title: string; description: string }[] }, taskIndex: number) {
-            if (this.draggedTask && this.draggedFrom) {
-                const fromTaskIndex = this.draggedFrom.tasks.indexOf(this.draggedTask);
-                if (fromTaskIndex !== -1) this.draggedFrom.tasks.splice(fromTaskIndex, 1);
-                
-                column.tasks.splice(taskIndex, 0, this.draggedTask);
-                this.draggedTaskIndex = taskIndex;
-            }
-        },
       onDrop(column: { title: string; tasks: { title: string; description: string }[] }, taskIndex: number | null) {
         if (this.draggedTask && this.draggedFrom) {
-            const fromTaskIndex = this.draggedFrom.tasks.indexOf(this.draggedTask);
-            if (fromTaskIndex !== -1) this.draggedFrom.tasks.splice(fromTaskIndex, 1);
-            
-            if (taskIndex !== null) {
-                column.tasks.splice(taskIndex, 0, this.draggedTask);
-            } else {
-                column.tasks.push(this.draggedTask);
-            }
-            this.draggedTask = null;
-            this.draggedFrom = null;
-            this.draggedTaskIndex = null;
+        const fromTaskIndex = this.draggedFrom.tasks.indexOf(this.draggedTask);
+        if (fromTaskIndex !== -1) this.draggedFrom.tasks.splice(fromTaskIndex, 1);
+
+        if (taskIndex !== null) {
+          column.tasks.splice(taskIndex, 0, this.draggedTask);
+        } else {
+          column.tasks.push(this.draggedTask);
+        }
+
+        this.draggedTask = null;
+        this.draggedFrom = null;
+        this.draggedTaskIndex = null;
         }
       }
     }
