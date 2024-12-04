@@ -27,17 +27,17 @@ Tech Stack
 Getting Started
 
 1. Clone the repository
-git clone https://github.com/Ceazer101/Vuetiful-Board
-cd Vuetiful-Board
+-git clone https://github.com/Ceazer101/Vuetiful-Board
+-cd Vuetiful-Board
 
 2. Install dependencies
-npm i
+-npm i
 
 3. Run the development server
-npm run dev
+-npm run dev
 
 4. Build for production
-npm run build
+-npm run build
 
 5. Preview the production build
-npm run preview
+-npm run preview
